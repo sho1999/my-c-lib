@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smuramat <smuramat@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: smuramat <smuramat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/29 08:00:33 by smuramat          #+#    #+#             */
-/*   Updated: 2021/12/13 22:50:19 by smuramat         ###   ########.fr       */
+/*   Updated: 2022/08/23 18:53:44 by smuramat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+
 struct s_variables {
 	size_t	i;
 	size_t	j;
@@ -72,28 +73,28 @@ static char	*word_dup(const char *str, int start, int finish, char **test)
 
 char	**ft_split(char const *s, char c)
 {
-	struct s_variables	S;
+	struct s_variables	v;
 	char				**split;
 
-	S.i = 0;
-	S.j = 0;
-	S.index = -1;
+	v.i = 0;
+	v.j = 0;
+	v.index = -1;
 	if (!(s))
 		return (NULL);
 	split = malloc((count_words(s, c) + 1) * sizeof(char *));
 	if (!(split))
 		return (NULL);
-	while (S.i <= ft_strlen(s))
+	while (v.i <= ft_strlen(s))
 	{
-		if (s[S.i] != c && S.index < 0)
-			S.index = S.i;
-		else if ((s[S.i] == c || S.i == ft_strlen(s)) && S.index >= 0)
+		if (s[v.i] != c && v.index < 0)
+			v.index = v.i;
+		else if ((s[v.i] == c || v.i == ft_strlen(s)) && v.index >= 0)
 		{
-			split[S.j++] = word_dup(s, S.index, S.i, split);
-			S.index = -1;
+			split[v.j++] = word_dup(s, v.index, v.i, split);
+			v.index = -1;
 		}
-		S.i++;
+		v.i++;
 	}
-	split[S.j] = 0;
+	split[v.j] = 0;
 	return (split);
 }
